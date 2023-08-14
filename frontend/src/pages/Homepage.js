@@ -8,6 +8,8 @@ import NonPublic from "../components/NonPublic";
 import ObjectsList from "../components/ObjectsList";
 import DonutChart from "../components/DonutChart";
 
+const API_BASE_URL = "https://mayarhamed.pythonanywhere.com/";
+
 function Homepage() {
 
     const [objects, setObjects] = useState([])
@@ -26,13 +28,13 @@ function Homepage() {
     const [chartData, setChartData] = useState({})
 
     useEffect(() => {
-        axios.get('http://localhost:5000/objects').then((response) => {
+        axios.get(`${API_BASE_URL}/objects`).then((response) => {
             setObjects(response.data);
         });
-        axios.get('http://localhost:5000/buckets').then((response) => {
+        axios.get(`${API_BASE_URL}/buckets`).then((response) => {
             setBuckets(response.data);
         });
-        axios.get('http://localhost:5000/permissions').then((response) => {
+        axios.get(`${API_BASE_URL}/permissions`).then((response) => {
             setPermissions(response.data);
             setIsLoading(false);
         });

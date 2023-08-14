@@ -1,9 +1,15 @@
 import boto3
 import configparser
+import os
+from pathlib import Path
+
+path = Path(__file__)
+ROOT_DIR = path.parent.absolute()
+config_path = os.path.join(ROOT_DIR, "config.ini")
 
 def get_s3_client():
     config = configparser.ConfigParser()
-    config.read('config.ini')
+    config.read(config_path)
 
     aws_access_key_id = config.get('aws', 'aws_access_key_id')
     aws_secret_access_key = config.get('aws', 'aws_secret_access_key')
@@ -34,12 +40,6 @@ def get_all_objects():
                 }
                 all_objects.append(obj_with_bucket)
     return all_objects
-
-
-# def get_object_permissions(bucket_name, object_key):
-#     s3 = get_s3_client()
-#     response = s3.get_object_acl(Bucket=bucket_name, Key=object_key)
-#     return response
 
 def get_object_permissions():
     s3 = get_s3_client()
