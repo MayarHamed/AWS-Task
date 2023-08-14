@@ -1,0 +1,8 @@
+.homepage{
+    min-height: 100vh;
+}
+.box-container,.overview-row{
+    /* border: 2px solid red; */
+    display: flex;
+    justify-content: space-evenly;
+}

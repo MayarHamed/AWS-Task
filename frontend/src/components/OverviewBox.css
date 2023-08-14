@@ -1,0 +1,9 @@
+.square {
+    border: 2px solid white;
+    background-color: aquamarine;
+}
+
+.square:hover {
+    background-color: rgb(121, 221, 187);
+    cursor: pointer;
+}
