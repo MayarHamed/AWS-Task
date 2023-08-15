@@ -24,5 +24,9 @@ def get_all_permissions():
     permissions = get_object_permissions()
     return jsonify(permissions)
 
+@app.errorhandler(Exception)          
+def basic_error(e):          
+    return "an error occured: " + str(e)
+
 if __name__ == '__main__':
     app.run()
