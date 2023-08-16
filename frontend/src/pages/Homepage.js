@@ -158,7 +158,7 @@ function Homepage() {
                         {activeComponent === 'buckets' && <BucketList buckets={buckets} />}
                         {activeComponent === 'public' && <PublicList list={publicObj} />}
                         {activeComponent === 'nonPublic' && (
-                            <div className="d-flex mt-5">
+                            <div className="d-flex mt-5 container">
                                 <NonPublic list={categorizedObjects} />
                                 <DonutChart chartData={chartData} />
                             </div>
