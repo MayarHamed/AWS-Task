@@ -1,18 +1,23 @@
 import boto3
-import configparser
-import os
-from pathlib import Path
+# import configparser
+# import os
+# from pathlib import Path
+from flask import session
+from flask_session import Session
 
-path = Path(__file__)
-ROOT_DIR = path.parent.absolute()
-config_path = os.path.join(ROOT_DIR, "config.ini")
+# path = Path(__file__)
+# ROOT_DIR = path.parent.absolute()
+# config_path = os.path.join(ROOT_DIR, "config.ini")
 
 def get_s3_client():
-    config = configparser.ConfigParser()
-    config.read(config_path)
+    # config = configparser.ConfigParser()
+    # config.read(config_path)
 
-    aws_access_key_id = config.get('aws', 'aws_access_key_id')
-    aws_secret_access_key = config.get('aws', 'aws_secret_access_key')
+    # aws_access_key_id = config.get('aws', 'aws_access_key_id')
+    # aws_secret_access_key = config.get('aws', 'aws_secret_access_key')
+
+    aws_access_key_id = session.get("aws_access_key_id")
+    aws_secret_access_key = session.get("aws_secret_access_key")
 
     s3 = boto3.client('s3', aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key)
     return s3

@@ -4,7 +4,7 @@ function NonPublic(props) {
         <div>
             <div className="container m-2">
                 <h3>Non-Public Objects</h3>
-                <h5 className="m-2">Categorized by Owner</h5>
+                <h5 className="mt-2">Categorized by Owner</h5>
                 {Object.keys(props.list).length !== 0 ? (
                     Object.keys(props.list).map((owner) => {
                         return (
@@ -17,11 +17,6 @@ function NonPublic(props) {
                                         props.list[owner].map((object) => {
                                             return (
                                                 <div className="card m-2 card-body" key={object.Key} >
-                                                    {/* <ul >
-                                                        <li>{object.Key}</li>
-                                                        <li>{object.Bucket}</li>
-                                                        <li>{object.Size}</li>
-                                                    </ul> */}
                                                     <table className="table table-striped">
                                                         <thead>
                                                             <tr>

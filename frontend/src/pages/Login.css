@@ -1,0 +1,14 @@
+.page-container {
+    min-height: 100vh;
+}
+
+.login-form {
+    max-height: 60vh;
+}
+.card-content{
+    justify-content: space-evenly;
+    /* border: 2px solid red; */
+}
+.label{
+    width: 35%;
+}

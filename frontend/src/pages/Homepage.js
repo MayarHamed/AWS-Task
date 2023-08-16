@@ -7,10 +7,15 @@ import PublicList from "../components/PublicList";
 import NonPublic from "../components/NonPublic";
 import ObjectsList from "../components/ObjectsList";
 import DonutChart from "../components/DonutChart";
+import { useNavigate } from 'react-router-dom';
 
-const API_BASE_URL = "https://mayarhamed.pythonanywhere.com/";
+// const API_BASE_URL = "https://mayarhamed.pythonanywhere.com/";
+const API_BASE_URL = "http://127.0.0.1:5000"
 
 function Homepage() {
+
+    const isAuthenticated = sessionStorage.getItem('logged_in');
+    const navigate = useNavigate()
 
     const [objects, setObjects] = useState([])
     const [permissions, setPermissions] = useState([])
@@ -28,32 +33,58 @@ function Homepage() {
     const [chartData, setChartData] = useState({})
 
     useEffect(() => {
-        axios.get(`${API_BASE_URL}/objects`).then((response) => {
-            setObjects(response.data);
-        });
-        axios.get(`${API_BASE_URL}/buckets`).then((response) => {
-            setBuckets(response.data);
-        });
-        axios.get(`${API_BASE_URL}/permissions`).then((response) => {
-            setPermissions(response.data);
-            setIsLoading(false);
-        });
+        if (!isAuthenticated)
+            navigate('/')
+    })
+
+    useEffect(() => {
+        axios.get(`${API_BASE_URL}/objects`)
+            .then((response) => {
+                setObjects(response.data);
+            })
+            .catch((error) => {
+                console.error("Error fetching objects:", error);
+                setIsLoading(false);
+            });
+
+        axios.get(`${API_BASE_URL}/buckets`)
+            .then((response) => {
+                setBuckets(response.data);
+            })
+            .catch((error) => {
+                console.error("Error fetching buckets:", error);
+                setIsLoading(false);
+            });
+
+        axios.get(`${API_BASE_URL}/permissions`)
+            .then((response) => {
+                setPermissions(response.data);
+                setIsLoading(false);
+            })
+            .catch((error) => {
+                console.error("Error fetching permissions:", error);
+                setIsLoading(false);
+            });
     }, []);
+
 
     //to divide objects into public and non-public 
     useEffect(() => {
-        categorize_permissions(permissions)
+        if (permissions)
+            categorize_permissions(permissions)
     }, [permissions]);
 
     //categorize the non-public by owner
     useEffect(() => {
-        const uniqueCategories = [...new Set(nonPublicObj.map(item => item.Owner))];
-        const categorizedLists = {}
-        uniqueCategories.forEach(category => {
-            categorizedLists[category] = nonPublicObj.filter(item => item.Owner === category)
-        });
+        if (nonPublicObj) {
+            const uniqueCategories = [...new Set(nonPublicObj.map(item => item.Owner))];
+            const categorizedLists = {}
+            uniqueCategories.forEach(category => {
+                categorizedLists[category] = nonPublicObj.filter(item => item.Owner === category)
+            });
 
-        setCategorizedObjects(categorizedLists)
+            setCategorizedObjects(categorizedLists)
+        }
     }, [nonPublicObj])
 
     //get chart data
@@ -128,8 +159,8 @@ function Homepage() {
                         {activeComponent === 'public' && <PublicList list={publicObj} />}
                         {activeComponent === 'nonPublic' && (
                             <div className="d-flex mt-5">
-                            <DonutChart chartData={chartData} />
                                 <NonPublic list={categorizedObjects} />
+                                <DonutChart chartData={chartData} />
                             </div>
                         )}
 
