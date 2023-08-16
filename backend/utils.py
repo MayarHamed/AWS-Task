@@ -9,28 +9,28 @@ from flask_session import Session
 # ROOT_DIR = path.parent.absolute()
 # config_path = os.path.join(ROOT_DIR, "config.ini")
 
-def get_s3_client():
+def get_s3_client(aws_access_key_id,aws_secret_access_key):
     # config = configparser.ConfigParser()
     # config.read(config_path)
 
     # aws_access_key_id = config.get('aws', 'aws_access_key_id')
     # aws_secret_access_key = config.get('aws', 'aws_secret_access_key')
 
-    aws_access_key_id = session.get("aws_access_key_id")
-    aws_secret_access_key = session.get("aws_secret_access_key")
+    # aws_access_key_id = session.get("aws_access_key_id")
+    # aws_secret_access_key = session.get("aws_secret_access_key")
 
     s3 = boto3.client('s3', aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key)
     return s3
 
-def get_all_buckets():
-    s3 = get_s3_client()
+def get_all_buckets(s3):
+    # s3 = get_s3_client()
     response = s3.list_buckets()
     buckets = response['Buckets']
     return buckets
 
-def get_all_objects():
-    s3 = get_s3_client()
-    buckets = get_all_buckets()
+def get_all_objects(s3):
+    # s3 = get_s3_client()
+    buckets = get_all_buckets(s3)
     all_objects = []
 
     for bucket in buckets:
@@ -46,9 +46,9 @@ def get_all_objects():
                 all_objects.append(obj_with_bucket)
     return all_objects
 
-def get_object_permissions():
-    s3 = get_s3_client()
-    objects = get_all_objects()
+def get_object_permissions(s3):
+    # s3 = get_s3_client()
+    objects = get_all_objects(s3)
     all_permissions = []
 
     for obj in objects:

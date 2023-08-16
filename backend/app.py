@@ -12,6 +12,8 @@ CORS(app)
 app.config['SESSION_TYPE'] = 'filesystem' 
 Session(app)
 
+
+
 @app.route('/', methods=['GET'])
 def welcome():
     return 'Welcome!'
@@ -21,7 +23,10 @@ def login():
     data = request.json
     session['aws_access_key_id'] = data.get('aws_access_key_id')
     session['aws_secret_access_key'] = data.get('aws_secret_access_key')
-    s3 = get_s3_client()
+    s3 = get_s3_client(session['aws_access_key_id'], session['aws_secret_access_key'])
+    global aws_access_key_id,aws_secret_access_key
+    aws_access_key_id= data.get('aws_access_key_id')
+    aws_secret_access_key=  data.get('aws_secret_access_key')
     try:
         s3.list_buckets()
         return jsonify({'message': 'Logged in successfully'})
@@ -34,17 +39,20 @@ def login():
 
 @app.route('/buckets', methods=['GET'])
 def get_buckets():
-    buckets = get_all_buckets()
+    s3 = get_s3_client(aws_access_key_id,aws_secret_access_key)
+    buckets = get_all_buckets(s3)
     return jsonify(buckets)
 
 @app.route('/objects', methods=['GET'])
 def get_objects():
-    objects = get_all_objects()
+    s3 = get_s3_client(aws_access_key_id,aws_secret_access_key)
+    objects = get_all_objects(s3)
     return jsonify(objects)
 
 @app.route('/permissions', methods=['GET'])
 def get_all_permissions():
-    permissions = get_object_permissions()
+    s3 = get_s3_client(aws_access_key_id,aws_secret_access_key)
+    permissions = get_object_permissions(s3)
     return jsonify(permissions)
 
 if __name__ == '__main__':
