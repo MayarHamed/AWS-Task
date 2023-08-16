@@ -1,6 +1,6 @@
 function ObjectsList({ objects }) {
     return (
-        <div >
+        <div className="container">
             <h3 className="m-3">All Objects</h3>
             <div className="container m-3 w-75 card card-body rounded m-2">
                 {objects && objects.length > 0 ? (

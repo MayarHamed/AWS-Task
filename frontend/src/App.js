@@ -5,7 +5,7 @@ import Login from './pages/Login';
 
 function App() {
   return (
-    <div className="app bg-dark text-light">
+    <div className="app bg-dark text-light container">
       <Header />
       <Routes>
         <Route path='/dashboard' Component={Home} />

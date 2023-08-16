@@ -1,7 +1,7 @@
 function NonPublic(props) {
     // console.log(props.list)
     return (
-        <div>
+        <div className="container">
             <div className="container m-2">
                 <h3>Non-Public Objects</h3>
                 <h5 className="mt-2">Categorized by Owner</h5>

@@ -12,6 +12,7 @@ function Login() {
     const navigate = useNavigate()
 
     function login() {
+
         const accessKeyId = document.getElementById('accessKeyId').value;
         const secretAccessKey = document.getElementById('secretAccessKey').value;
 
@@ -19,6 +20,7 @@ function Login() {
             aws_access_key_id: accessKeyId,
             aws_secret_access_key: secretAccessKey
         };
+
         const config = {
             headers: {
                 'Content-Type': 'application/json',
@@ -27,21 +29,27 @@ function Login() {
                 'Conncetion': 'keep-alive'
             },
         };
+
         axios.post(`${API_BASE_URL}/login`, data, config)
             .then(response => {
                 if (response.data.message) {
-                    sessionStorage.setItem('logged_in',true)
+                    sessionStorage.setItem('logged_in', true)
                     navigate('/dashboard')
                     console.log(response.data.message)
                 }
                 else {
                     setIsLoggedIn(false)
-                    sessionStorage.setItem('logged_in',false)
+                    sessionStorage.setItem('logged_in', false)
                     setLoginErr(response.data.error)
                     console.log(response.data.error)
                 }
             })
     }
+
+    useEffect(() => {
+        if (isLoggedIn)
+            navigate('/dashboard')
+    })
 
     return (
         <div className="container d-flex justify-content-center mt-5 page-container bg-dark">
