@@ -7,6 +7,8 @@ function Login() {
 
     const API_BASE_URL = "https://mayarhamed.pythonanywhere.com";
 
+    const isAuthenticated = sessionStorage.getItem('logged_in');
+
     const [isLoggedIn, setIsLoggedIn] = useState(true)
     const [loginErr, setLoginErr] = useState(null)
     const navigate = useNavigate()
@@ -47,7 +49,7 @@ function Login() {
     }
 
     useEffect(() => {
-        if (isLoggedIn)
+        if (isAuthenticated)
             navigate('/dashboard')
     })
 
