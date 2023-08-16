@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Login() {
 
-    const API_BASE_URL = "https://mayarhamed.pythonanywhere.com/";
+    const API_BASE_URL = "https://mayarhamed.pythonanywhere.com";
 
     const [isLoggedIn, setIsLoggedIn] = useState(true)
     const [loginErr, setLoginErr] = useState(null)
