@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 
 function Login() {
 
+    const API_BASE_URL = "https://mayarhamed.pythonanywhere.com/";
+
     const [isLoggedIn, setIsLoggedIn] = useState(true)
     const [loginErr, setLoginErr] = useState(null)
     const navigate = useNavigate()
@@ -25,7 +27,7 @@ function Login() {
                 'Conncetion': 'keep-alive'
             },
         };
-        axios.post('http://localhost:5000/login', data, config)
+        axios.post(`${API_BASE_URL}/login`, data, config)
             .then(response => {
                 if (response.data.message) {
                     sessionStorage.setItem('logged_in',true)

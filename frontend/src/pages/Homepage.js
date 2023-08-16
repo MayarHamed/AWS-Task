@@ -9,8 +9,8 @@ import ObjectsList from "../components/ObjectsList";
 import DonutChart from "../components/DonutChart";
 import { useNavigate } from 'react-router-dom';
 
-// const API_BASE_URL = "https://mayarhamed.pythonanywhere.com/";
-const API_BASE_URL = "http://127.0.0.1:5000"
+const API_BASE_URL = "https://mayarhamed.pythonanywhere.com/";
+// const API_BASE_URL = "http://127.0.0.1:5000"
 
 function Homepage() {
 

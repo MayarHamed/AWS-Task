@@ -5,7 +5,6 @@ from flask import session, request
 from flask_session import Session
 
 import botocore
-from datetime import timedelta
 
 app = Flask(__name__)
 CORS(app)
